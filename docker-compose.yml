@@ -1,0 +1,22 @@
+services:
+  server:
+    build: ./server
+    ports:
+      - "3000:3000"
+    environment:
+      JWT_SECRET: "${JWT_SECRET:-change-me-please}"
+      DATA_DIR: /data
+    volumes:
+      - ledger-data:/data
+    restart: unless-stopped
+
+  web:
+    build: ./web
+    ports:
+      - "8080:80"
+    depends_on:
+      - server
+    restart: unless-stopped
+
+volumes:
+  ledger-data:
