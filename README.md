@@ -4,6 +4,16 @@
 
 > 项目经历型作品：从零手写，含端到端接口测试（15 个用例），代码结构清晰，适合作为前端/全栈方向的简历项目。
 
+## ✅ 可验证状态
+
+| 徽章 | 说明 |
+| --- | --- |
+| ![CI](https://img.shields.io/github/actions/workflow/status/hedongli1/ledger-app/ci.yml?branch=main&label=CI&logo=github) | 测试 + 构建流水线（Node 22/24，`npm test` 15 用例 + `vite build`），点击徽章可查看运行历史 |
+| ![tests](https://img.shields.io/badge/tests-15%20passed-brightgreen) | 端到端接口测试全部通过（`node --test`，零框架依赖） |
+| ![license](https://img.shields.io/github/license/hedongli1/ledger-app) | MIT |
+
+> 本地复现：`cd server && npm install && npm test` → 15 个用例全部通过（需 Node ≥ 22）。
+
 ## ✨ 功能
 
 - **账号系统**：注册 / 登录 / JWT 鉴权（密码 bcrypt 加盐哈希）
