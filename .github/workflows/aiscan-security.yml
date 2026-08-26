@@ -1,0 +1,26 @@
+name: aiscan-security
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  schedule:
+    - cron: "0 2 * * *" # 每日凌晨 2 点定时扫描
+
+jobs:
+  security-scan:
+    name: aiscan 安全审计
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write # 用于上传 SARIF 到 Security 标签页
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: aiscan 静态安全扫描
+        uses: hedongli1/aiscan@v1
+        with:
+          path: server/src
+          severity: low
+          fail-on: high
