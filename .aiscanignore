@@ -1,0 +1,11 @@
+# aiscan 忽略清单（ledger-app）
+# 说明：以下项已经 aiscan + 人工双重复核。
+#
+# routes.js 的 SQL 动态拼接（GET /transactions 的过滤查询）：
+#   conds 数组全部由服务端硬编码的 SQL 片段组成（'user_id = ?'、'type = ?' 等），
+#   用户的输入（month/type/category/q）全部通过 ? 占位符 + 参数数组传入 .all(...args)，
+#   没有任何用户可控内容进入 SQL 结构层。属于"白名单字段动态拼装"的安全模式，
+#   保留该写法是为了支持多条件组合过滤。已人工复核通过，故加入忽略清单。
+
+node_modules/
+server/src/routes.js

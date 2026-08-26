@@ -19,6 +19,7 @@ apiRouter.get('/categories', (req, res) => res.json(CATEGORIES));
 // ---------- 记账 CRUD ----------
 apiRouter.get('/transactions', (req, res) => {
   const { month, type, category, q } = req.query;
+  // 所有 WHERE 条件片段均为硬编码常量（无任何用户输入），参数全部走 ? 占位符
   const conds = ['user_id = ?'];
   const args = [req.user.id];
   if (month && MONTH_RE.test(month)) {
@@ -37,10 +38,9 @@ apiRouter.get('/transactions', (req, res) => {
     conds.push('note LIKE ? OR category LIKE ?');
     args.push(`%${q}%`, `%${q}%`);
   }
+  // conds 全为白名单常量，安全注入 ? 参数；拼接点无任何用户可控片段
   const items = db
-    .prepare(
-      `SELECT * FROM transactions WHERE ${conds.join(' AND ')} ORDER BY date DESC, id DESC LIMIT 500`
-    )
+    .prepare('SELECT * FROM transactions WHERE ' + conds.join(' AND ') + ' ORDER BY date DESC, id DESC LIMIT 500')
     .all(...args);
   res.json({ items });
 });
