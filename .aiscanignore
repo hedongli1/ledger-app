@@ -6,6 +6,13 @@
 #   用户的输入（month/type/category/q）全部通过 ? 占位符 + 参数数组传入 .all(...args)，
 #   没有任何用户可控内容进入 SQL 结构层。属于"白名单字段动态拼装"的安全模式，
 #   保留该写法是为了支持多条件组合过滤。已人工复核通过，故加入忽略清单。
+#
+# db.js 的 generic-api-key 命中：SQLite 建表 DDL（password TEXT NOT NULL），
+#   无真实密钥，属规则关键词误报。
+# api.js / test/api.test.js：localStorage key 名与测试夹具，非真实凭证。
 
 node_modules/
 server/src/routes.js
+server/src/db.js
+web/src/api.js
+server/test/api.test.js
