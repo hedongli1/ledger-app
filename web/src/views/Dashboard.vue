@@ -24,6 +24,9 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import * as echarts from 'echarts';
+// ECharts 6 更换了默认主题（配色、图例默认位置、标签防溢出等），
+// 会改变本页仪表盘的既有观感。引入官方 v5 兼容主题，保持视觉不变。
+import 'echarts/theme/v5';
 import { api } from '../api.js';
 
 const trendEl = ref(null);
@@ -41,7 +44,7 @@ onMounted(async () => {
   const trend = await api.trend(6);
   const cats = await api.categoriesStats(month, 'expense');
 
-  const c1 = echarts.init(trendEl.value);
+  const c1 = echarts.init(trendEl.value, 'v5');
   c1.setOption({
     backgroundColor: 'transparent',
     tooltip: { trigger: 'axis', backgroundColor: '#1a1610', borderColor: '#2c2517', textStyle: { color: '#f6f0e4' } },
@@ -55,7 +58,7 @@ onMounted(async () => {
     ],
   });
 
-  const c2 = echarts.init(pieEl.value);
+  const c2 = echarts.init(pieEl.value, 'v5');
   c2.setOption({
     backgroundColor: 'transparent',
     tooltip: { trigger: 'item', backgroundColor: '#1a1610', borderColor: '#2c2517', textStyle: { color: '#f6f0e4' }, formatter: '{b}: ¥{c}（{d}%）' },
