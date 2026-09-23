@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [main, master]
   schedule:
-    - cron: "0 2 * * *" # 每日凌晨 2 点定时扫描
+    - cron: "0 2 * * *" # 每日凌晨 2 点定时扫描  workflow_dispatch:
 
 jobs:
   security-scan:
